@@ -11,7 +11,7 @@ dhcp = boto.config.get('VPC', 'dhcp-id')
 vpc = conn.create_vpc(cidr) 
 conn.create_subnet( vpc.id,cidr)
 
-group = conn.create_security_group("VPCIN", "important text", vpc.id)
+group = [gr for gr in conn.get_all_security_groups() if gr.vpc_id == vpc.id][0] 
 print group.id
 
 gate = conn.create_internet_gateway()
