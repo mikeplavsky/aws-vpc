@@ -1,11 +1,10 @@
 #!/usr/bin/python
 
 import boto
-from boto import config as cfg
 
 conn = boto.connect_vpc()
 
-cidr, dhcp, ip = [cfg.get('VPC', x) for x in [ 'cidr', 'dhcp-id', 'external-cidr']]
+cidr, dhcp, ip = [boto.config.get('VPC', x) for x in [ 'cidr', 'dhcp-id', 'external-cidr']]
 
 vpc = conn.create_vpc(cidr) 
 conn.create_subnet( vpc.id,cidr)
